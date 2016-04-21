@@ -1,0 +1,124 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/item_selector"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp">
+
+    <TextView
+        android:id="@+id/tv_id"
+        style="@style/ItemTextViewStyle"
+        android:text="@string/id"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:text="姓名"
+        style="@style/ItemTextViewStyle"
+        android:layout_width="60dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        android:text="电话"
+        style="@style/ItemTextViewStyle"
+        android:layout_width="100dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:id="@+id/tv_tower_number"
+        android:text="电塔编号"
+        style="@style/ItemTextViewStyle"
+        android:layout_width="80dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:id="@+id/tv_work_state"
+        android:text="工作状态"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"/>
+
+    <TextView
+        android:text="更多"
+        style="@style/ItemTextViewStyle"
+        android:textStyle="bold"/>
+</LinearLayout>

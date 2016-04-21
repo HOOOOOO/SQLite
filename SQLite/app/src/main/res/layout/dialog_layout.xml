@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/shape_rounded_rectangle">
+        <include
+            layout="@layout/edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_delete"
+                style="@style/DialogButtonStyle"
+                android:text="删除"/>
+            <Button
+                android:id="@+id/btn_edit"
+                style="@style/DialogButtonStyle"
+                android:text="修改" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                style="@style/DialogButtonStyle"
+                android:text="同步"/>
+            <Button
+                android:id="@+id/btn_cancle"
+                style="@style/DialogButtonStyle"
+                android:text="取消"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+
