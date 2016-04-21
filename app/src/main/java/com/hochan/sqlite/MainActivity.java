@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +18,6 @@ import com.hochan.sqlite.fragment.EditDialogFragment;
 import com.hochan.sqlite.fragment.SearchDialogFragment;
 import com.hochan.sqlite.fragment.WorkersListFragment;
 import com.hochan.sqlite.sql.DataHelper;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, EditDialogFragment.OnDialogListener{
 
@@ -44,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
+
+        Log.i("test","success");
 
         btnSearch = (Button) findViewById(R.id.btn_search);
         btnAdd = (Button) findViewById(R.id.btn_add);
