@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import com.hochan.sqlite.data.Worker;
+import com.hochan.sqlite.fragment.SearchDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DataHelper {
     }
 
     public List<Worker> getWorkersInfo(){
-        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, null, null, null, null, null);
+        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, null, null, null, null,SearchDialogFragment.SEARCH_ORDERBY, null);
         cursor.moveToFirst();
         List<Worker> workers = new ArrayList<>();
         while (!cursor.isAfterLast()){
@@ -44,22 +45,27 @@ public class DataHelper {
         return workers;
     }
 
-    public List<Worker> getWorkerByID(int id) {
-        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, SqliteHelper.ID + "=" + id, null, null, null, null);
+    public List<Worker> getWorkerByID(int id1, int id2) {
+        Cursor cursor=db.query(SqliteHelper.TB_NAME, null,
+                SqliteHelper.ID + ">=" + id1 + " and " + SqliteHelper.ID + "<=" + id2,
+                null, null, null, SearchDialogFragment.SEARCH_ORDERBY,null);
         cursor.moveToFirst();
         List<Worker> workers = new ArrayList<>();
-        Worker worker = new Worker();
-        worker.setmID(cursor.getString(0));
-        worker.setmName(cursor.getString(1));
-        worker.setmPhoneNumber(cursor.getString(2));
-        worker.setmTowerNumber(cursor.getString(3));
-        worker.setmWorkState(cursor.getString(4));
-        workers.add(worker);
+        while (!cursor.isAfterLast()){
+            Worker worker = new Worker(String.valueOf(cursor.getInt(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4));
+            workers.add(worker);
+            cursor.moveToNext();
+        }
         return workers;
     }
 
     public List<Worker> getWorkersByName(String name){
-        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, SqliteHelper.NAME + " = \"" + name + "\"", null, null, null, null);
+        Cursor cursor=db.query(SqliteHelper.TB_NAME, null,
+                SqliteHelper.NAME + " = \"" + name + "\"", null, null, null, SearchDialogFragment.SEARCH_ORDERBY,null);
         cursor.moveToFirst();
         List<Worker> workers = new ArrayList<>();
         while (!cursor.isAfterLast()){
@@ -75,7 +81,13 @@ public class DataHelper {
     }
 
     public List<Worker> getWorkersByTowerNumber(String towerNum){
-        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, SqliteHelper.TOWER_NUMBER + "=" + towerNum, null, null, null, null);
+        String[] search_tower_range = new String[]{towerNum,towerNum};
+        if (towerNum.contains("-")){
+            search_tower_range = towerNum.split("-");
+        }
+        Cursor cursor=db.query(SqliteHelper.TB_NAME, null,
+                SqliteHelper.TOWER_NUMBER + ">=" + search_tower_range[0] + " and " + SqliteHelper.TOWER_NUMBER + "<=" + search_tower_range[1],
+                null, null, null,SearchDialogFragment.SEARCH_ORDERBY, null);
         cursor.moveToFirst();
         List<Worker> workers = new ArrayList<>();
         while (!cursor.isAfterLast()){
@@ -91,7 +103,8 @@ public class DataHelper {
     }
 
     public List<Worker> getWorkersByWorkState(String workstate){
-        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, SqliteHelper.WORK_STATE + "=" + workstate, null, null, null, null);
+        Cursor cursor=db.query(SqliteHelper.TB_NAME, null, SqliteHelper.WORK_STATE + "=" + workstate,
+                null, null, null,SearchDialogFragment.SEARCH_ORDERBY, null);
         cursor.moveToFirst();
         List<Worker> workers = new ArrayList<>();
         while (!cursor.isAfterLast()){

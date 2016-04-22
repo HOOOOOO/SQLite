@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="searchOrderby">
+        <item>ID</item>
+        <item>姓名</item>
+        <item>电话</item>
+        <item>电塔编号</item>
+        <item>工作状况</item>
+    </string-array>
+
+</resources>

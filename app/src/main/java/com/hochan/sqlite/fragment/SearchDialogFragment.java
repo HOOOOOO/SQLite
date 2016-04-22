@@ -14,30 +14,33 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hochan.sqlite.R;
 import com.hochan.sqlite.tools.MyApplication;
 
-import java.util.Stack;
-
 /**
  * Created by Administrator on 2016/4/14.
  */
-public class SearchDialogFragment extends DialogFragment implements View.OnClickListener{
+public class SearchDialogFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
     public final static int SEARCH_BY_ID = 0;
     public final static int SEARCH_BY_NAME = 1;
     public final static int SEARCH_BY_TOWERNUM = 2;
     public final static int SEARCH_BY_WORHSTATE = 3;
 
+    public static String SEARCH_ORDERBY = "ID";
+
 
     private View mView;
     private Context mContext;
     private Button btnShowAll, btnSearchID, btnSearchName, btnSearchTowerNum, btnSearchWorkState;
     private EditText edSearch;
+    private Spinner spnOrderby;
 
     private AnimationSet mDialogInAnim;
     private View mRootView;
@@ -84,6 +87,8 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         btnSearchWorkState = (Button) mView.findViewById(R.id.btn_search_workstate);
 
         edSearch = (EditText) mView.findViewById(R.id.ed_search);
+        spnOrderby = (Spinner) mView.findViewById(R.id.spinner_search_orderby);
+        spnOrderby.setOnItemSelectedListener(this);
 
         btnShowAll.setOnClickListener(this);
         btnSearchID.setOnClickListener(this);
@@ -118,6 +123,16 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
                 break;
         }
         dismiss();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        SEARCH_ORDERBY = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        SEARCH_ORDERBY = "ID";
     }
 
     private OnSearchDialogListener mSearchListener;

@@ -56,4 +56,18 @@
         <item name="android:textSize">15sp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+    <style name="SearchDialogTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="AddWorkStateRadioButtonStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

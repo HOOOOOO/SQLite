@@ -3,18 +3,15 @@ package com.hochan.sqlite.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaMetadata;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.Display;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.hochan.sqlite.R;
@@ -35,16 +34,10 @@ import com.hochan.sqlite.tools.GetLocalImageByUri;
 import com.hochan.sqlite.tools.MyApplication;
 import com.hochan.sqlite.tools.ScreenTools;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.transform.Result;
-
 /**
  * Created by Administrator on 2016/4/12.
  */
-public class EditDialogFragment extends DialogFragment implements View.OnClickListener{
+public class EditDialogFragment extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
 
     public final static int ADD_DIALOG = 0;
     public final static int DELETEEDIT_DIALOG = 1;
@@ -58,9 +51,11 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
     private View mView, mRootView;
     private Context mContext;
     private Button btnDelete, btnEdit, btnCancle, btnPicture, btnUpload;
-    private EditText edName, edPhoneNumber, edTowerNumber, edWorkState;
+    private EditText edName, edPhoneNumber, edTowerNumber; // edWorkState;
+    private RadioGroup rgWorkState;
     private ImageView ivImage;
     private String mName, mPhoneNumber, mTowerNumber, mWorkState;
+    private String mWorkStateFromRG = "在岗";
     public int mPosition;
     private int mTag;
     private final static String IMAGE = "image/*";
@@ -142,11 +137,13 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
         edName = (EditText) mView.findViewById(R.id.ed_name);
         edPhoneNumber = (EditText) mView.findViewById(R.id.ed_phone_number);
         edTowerNumber = (EditText) mView.findViewById(R.id.ed_tower_number);
-        edWorkState = (EditText) mView.findViewById(R.id.ed_work_state);
+//        edWorkState = (EditText) mView.findViewById(R.id.ed_work_state);
+        rgWorkState = (RadioGroup) mView.findViewById(R.id.rg_work_state);
 
         btnEdit.setOnClickListener(this);
         btnCancle.setOnClickListener(this);
         btnPicture.setOnClickListener(this);
+        rgWorkState.setOnCheckedChangeListener(this);
 
         if(getArguments().getInt(TAG) == ADD_DIALOG){
             btnDelete.setVisibility(View.GONE);
@@ -162,7 +159,7 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
             edName.setText(getArguments().getString(SqliteHelper.NAME));
             edPhoneNumber.setText(getArguments().getString(SqliteHelper.PHONE_NUMBER));
             edTowerNumber.setText(getArguments().getString(SqliteHelper.TOWER_NUMBER));
-            edWorkState.setText(getArguments().getString(SqliteHelper.WORK_STATE));
+//            edWorkState.setText(getArguments().getString(SqliteHelper.WORK_STATE));
             //Toast.makeText(mContext, "修改或删除", Toast.LENGTH_LONG).show();
             mPosition = getArguments().getInt(POSITION);
         }
@@ -189,15 +186,15 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
                         Toast.makeText(mContext, "请输入电塔编号", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    if(TextUtils.isEmpty(edWorkState.getText())){
-                        Toast.makeText(mContext, "请输入工作状况", Toast.LENGTH_LONG).show();
-                        return;
-                    }
+//                    if(TextUtils.isEmpty(edWorkState.getText())){
+//                        Toast.makeText(mContext, "请输入工作状况", Toast.LENGTH_LONG).show();
+//                        return;
+//                    }
                     Worker worker = new Worker();
                     worker.setmName(edName.getText().toString());
                     worker.setmPhoneNumber(edPhoneNumber.getText().toString());
                     worker.setmTowerNumber(edTowerNumber.getText().toString());
-                    worker.setmWorkState(edWorkState.getText().toString());
+                    worker.setmWorkState(mWorkStateFromRG);
                     mOnDialogListener.clicked(EDIT, worker, mPosition);
                     if(mTag == DELETEEDIT_DIALOG)
                         dismiss();
@@ -205,7 +202,7 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
                         edName.setText("");
                         edPhoneNumber.setText("");
                         edTowerNumber.setText("");
-                        edWorkState.setText("");
+//                        edWorkState.setText("");
                     }
                     break;
                 case R.id.btn_cancle:
@@ -218,6 +215,13 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
             }
         }
 
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        RadioButton rb = (RadioButton) mView.findViewById(checkedId);
+        mWorkStateFromRG = rb.getText().toString();
+        Log.i("radio button",rb.getText() + "");
     }
 
     private OnDialogListener mOnDialogListener;

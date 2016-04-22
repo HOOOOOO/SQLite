@@ -7,13 +7,33 @@
     android:background="@drawable/shape_rounded_rectangle"
     android:padding="15dp">
 
-    <EditText
-        android:id="@+id/ed_search"
-        style="@style/EditTextStyle"
-        android:layout_height="60dp"
-        android:layout_weight="0"
-        android:hint="输入关键字"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <EditText
+            style="@style/SearchDialogTextStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ed_search"
+            android:hint="输入关键字" />
+        <TextView
+            style="@style/SearchDialogTextStyle"
+            android:text="排序"
+            android:id="@+id/tv_define_for_spinner"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+        <Spinner
+            style="@style/SearchDialogTextStyle"
+            android:entries="@array/searchOrderby"
+            android:id="@+id/spinner_search_orderby"
+            android:layout_toLeftOf="@id/tv_define_for_spinner" />
+        <TextView
+            style="@style/SearchDialogTextStyle"
+            android:text="按"
+            android:layout_toLeftOf="@id/spinner_search_orderby"/>
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_search_id"

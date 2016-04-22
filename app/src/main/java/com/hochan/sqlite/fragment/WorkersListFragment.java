@@ -23,7 +23,6 @@ import com.hochan.sqlite.data.Worker;
 import com.hochan.sqlite.sql.DataHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -117,7 +116,11 @@ public class WorkersListFragment extends Fragment implements ShowAdapter.OnAdapt
         switch (type){
             case SearchDialogFragment.SEARCH_BY_ID:
                 try {
-                    results = dataHelper.getWorkerByID(Integer.parseInt(key));
+                    String[] search_id_range = new String[]{key,key};
+                    if (key.contains("-")){
+                        search_id_range = key.split("-");
+                    }
+                    results = dataHelper.getWorkerByID(Integer.parseInt(search_id_range[0]),Integer.parseInt(search_id_range[1]));
                 }catch (Exception e){
                     Toast.makeText(mContext, "输入有误", Toast.LENGTH_SHORT).show();
                     return;

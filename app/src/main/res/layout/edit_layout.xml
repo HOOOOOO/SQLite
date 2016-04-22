@@ -59,9 +59,22 @@
             <TextView
                 style="@style/AddTextViewStyle"
                 android:text="@string/work_state"/>
-            <EditText
-                android:id="@+id/ed_work_state"
-                style="@style/EditTextStyle"/>
+            <RadioGroup
+                android:gravity="bottom"
+                android:id="@+id/rg_work_state"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:text="在岗"
+                    android:checked="true"
+                    android:id="@+id/rb_work_state_on"
+                    style="@style/EditTextStyle"/>
+                <RadioButton
+                    android:text="休假"
+                    android:id="@+id/rb_work_state_off"
+                    style="@style/EditTextStyle"/>
+            </RadioGroup>
         </LinearLayout>
 
         <Button
