@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.hochan.sqlite.data.Worker;
 import com.hochan.sqlite.fragment.SearchDialogFragment;
+import com.hochan.sqlite.sync.SyncWithServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,11 +147,19 @@ public class DataHelper {
         values.put(SqliteHelper.TOWER_NUMBER, worker.getmTowerNumber());
         values.put(SqliteHelper.WORK_STATE, worker.getmWorkState());
         Long result = db.insert(SqliteHelper.TB_NAME, "null", values);
+
+        // 添加到同步列表修改
+        SyncWithServer.getInstance().getmModifyWorkers().put(String.valueOf(result), worker);
+        SyncWithServer.getInstance().ShowModifyWorkers();
         return result;
     }
 
     public int deleteByID(int id){
         int result = db.delete(SqliteHelper.TB_NAME, SqliteHelper.ID + "=" + id, null);
+
+        // 添加到同步列表删除
+        SyncWithServer.getInstance().getDeleteWorkers().add(id);
+        SyncWithServer.getInstance().ShowDeleteWorkers();
         return result;
     }
 
@@ -174,6 +183,10 @@ public class DataHelper {
             values.put(SqliteHelper.WORK_STATE, worker.getmWorkState());
         }
         int result = db.update(SqliteHelper.TB_NAME, values, SqliteHelper.ID + "=" + id, null);
+
+        // 添加到同步列表修改的
+        SyncWithServer.getInstance().getmModifyWorkers().put(String.valueOf(id), worker);
+        SyncWithServer.getInstance().ShowModifyWorkers();
         return result;
     }
 
